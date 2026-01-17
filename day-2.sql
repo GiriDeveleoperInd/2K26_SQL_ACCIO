@@ -1,0 +1,1 @@
+select * from finance.revenue_summary
