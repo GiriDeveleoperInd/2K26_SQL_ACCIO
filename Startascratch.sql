@@ -1,0 +1,32 @@
+--EASY
+-- Best Selling Item
+-- Last Updated: January 2026
+-- ID 10172
+
+-- Find the best-selling item for each month (no need to separate months by year). The best-selling item is determined by the highest total sales amount, calculated as: total_paid = unitprice * quantity. A negative quantity indicates a return or cancellation (the invoice number begins with 'C'. To calculate sales, ignore returns and cancellations. Output the month, description of the item, and the total amount paid.
+
+-- Table
+-- online_retail
+
+-- SELECT
+--     month,
+--     description,
+--     total_paid
+-- FROM (
+--     SELECT
+--         EXTRACT(MONTH FROM invoicedate) AS month,
+--         description,
+--         SUM(unitprice * quantity) AS total_paid,
+--         DENSE_RANK() OVER (
+--             PARTITION BY EXTRACT(MONTH FROM invoicedate)
+--             ORDER BY SUM(unitprice * quantity) DESC
+--         ) AS rn
+--     FROM online_retail
+--     WHERE quantity > 0
+--       AND invoiceno NOT LIKE 'C%'
+--     GROUP BY
+--         EXTRACT(MONTH FROM invoicedate),
+--         description
+-- ) t
+-- WHERE rn = 1
+-- ORDER BY month;
